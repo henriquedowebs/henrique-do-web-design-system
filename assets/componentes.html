@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Componentes de referência | Henrique do Web</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="fonts.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { color-scheme: dark; scroll-padding-top: var(--space-20); }
+    body {
+      margin: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font: 400 var(--type-body)/var(--line-body) var(--font-body);
+      overflow-wrap: anywhere;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 400; }
+    button { font: inherit; }
+    :focus-visible { outline: var(--border-panel) solid var(--color-text); outline-offset: var(--space-4); }
+    [hidden] { display: none !important; }
+
+    .hdw-container {
+      width: min(100% - var(--space-40), var(--container-main));
+      margin-inline: auto;
+    }
+    .hdw-container--narrow { max-width: var(--container-narrow); }
+    .hdw-stack { display: grid; gap: var(--space-20); }
+    .hdw-section { padding-block: var(--space-80); }
+    .hdw-section--surface { background: var(--color-surface); }
+    .hdw-section__title {
+      font-size: var(--type-heading);
+      line-height: min(1em, var(--line-display));
+    }
+    .hdw-grid {
+      display: grid;
+      gap: var(--space-24);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    }
+    .hdw-accent { color: var(--color-accent); }
+
+    /* Botões e primeira dobra */
+    .hdw-actions { display: flex; flex-wrap: wrap; gap: var(--space-20); }
+    .hdw-button {
+      display: inline-block;
+      max-width: 100%;
+      padding: var(--space-10) var(--space-20);
+      border: var(--border-button) solid transparent;
+      border-radius: var(--radius-square);
+      text-align: center;
+      text-decoration: none;
+      font: 400 var(--type-small)/1.25 var(--font-display);
+      cursor: pointer;
+      transition: background-color 150ms ease, color 150ms ease, transform 120ms ease, box-shadow 120ms ease;
+    }
+    .hdw-button--primary {
+      border-color: var(--color-black);
+      background: var(--color-accent);
+      color: var(--color-black);
+      box-shadow: var(--shadow-button);
+    }
+    .hdw-button--primary:hover { background: var(--color-accent-hover-lp); }
+    .hdw-button--secondary { border-color: var(--color-text); color: var(--color-text); }
+    .hdw-button--secondary:hover { background: var(--color-text); color: var(--color-black); }
+    .hdw-button:active { transform: translate(var(--space-2), var(--space-2)); box-shadow: none; }
+    .hdw-hero {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-20);
+      padding-block: var(--space-50);
+      text-align: center;
+    }
+    .hdw-hero__label {
+      color: var(--color-accent);
+      font: 400 var(--type-label)/1 var(--font-display);
+    }
+    .hdw-hero__title {
+      max-width: var(--container-hero-copy);
+      font-size: var(--type-hero);
+      line-height: var(--line-display);
+    }
+    .hdw-hero__copy { max-width: var(--container-hero-copy); color: var(--color-text-muted); }
+    .hdw-hero .hdw-actions { justify-content: center; }
+
+    /* Cards e etapas */
+    .hdw-card { min-width: 0; border: var(--border-panel) solid var(--color-accent); border-radius: var(--radius-square); }
+    .hdw-card__body { display: grid; gap: var(--space-15); padding: var(--space-20); background: var(--color-bg); }
+    .hdw-card__title { font-size: var(--type-step); line-height: 1; }
+    .hdw-card--alert { border-width: var(--border-button); }
+    .hdw-card__bar {
+      padding: var(--space-2) var(--space-10);
+      background: var(--color-accent);
+      color: var(--color-black);
+      font: 400 var(--type-card)/1.4 var(--font-display);
+    }
+    .hdw-card__marker { width: var(--space-50); aspect-ratio: 1; background: var(--color-error-lp); }
+    .hdw-steps { display: grid; gap: var(--space-30); margin: 0; padding: 0; list-style: none; }
+    .hdw-step {
+      display: grid;
+      gap: var(--space-10);
+      padding: var(--space-25);
+      border: var(--border-panel) solid var(--color-accent);
+      background: var(--color-bg);
+      box-shadow: var(--shadow-step);
+      transition: transform 180ms ease;
+    }
+    .hdw-step__number {
+      width: fit-content;
+      padding: var(--space-2) var(--space-8);
+      background: var(--color-accent);
+      color: var(--color-black);
+      font: 400 var(--type-step)/1 var(--font-display);
+    }
+    .hdw-step__title { font-size: var(--type-label); line-height: 1; }
+    @media (hover: hover) {
+      .hdw-step:hover { transform: translateX(var(--space-8)); }
+    }
+
+    /* Abas e FAQ */
+    .hdw-tabs__list { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+    .hdw-tabs__tab {
+      flex: 1 1 110px;
+      min-width: 0;
+      padding: var(--space-8) var(--space-10);
+      border: var(--border-panel) solid var(--color-surface);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font: 400 var(--type-card)/1 var(--font-display);
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+    .hdw-tabs__tab:hover { border-color: var(--color-accent); }
+    .hdw-tabs__tab[aria-selected="true"] {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: var(--color-black);
+    }
+    .hdw-tabs__panel {
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-20);
+      border: var(--border-panel) solid var(--color-accent);
+      background: var(--color-surface);
+    }
+    .hdw-tabs__panel h3 { font-size: var(--type-label); line-height: 1; }
+    .hdw-faq { display: grid; gap: var(--space-15); }
+    .hdw-faq__item { border: var(--border-panel) solid var(--color-surface); background: var(--color-surface); }
+    .hdw-faq__item[open] { border-color: var(--color-accent); }
+    .hdw-faq__question {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: var(--space-10);
+      padding: var(--space-20);
+      font: 400 var(--type-label)/1.2 var(--font-display);
+      list-style: none;
+      cursor: pointer;
+    }
+    .hdw-faq__question::-webkit-details-marker { display: none; }
+    .hdw-faq__icon { flex: none; color: var(--color-accent); transition: transform 180ms ease; }
+    .hdw-faq__item[open] .hdw-faq__icon { transform: rotate(45deg); }
+    .hdw-faq__answer { padding: 0 var(--space-20) var(--space-20); color: var(--color-text-muted); }
+    @supports (interpolate-size: allow-keywords) {
+      .hdw-faq__item { interpolate-size: allow-keywords; }
+      .hdw-faq__item::details-content {
+        block-size: 0;
+        overflow: clip;
+        transition: block-size 220ms ease, content-visibility 220ms allow-discrete;
+      }
+      .hdw-faq__item[open]::details-content { block-size: auto; }
+    }
+
+    /* Comparativo e fechamento */
+    .hdw-compare { display: grid; gap: var(--space-15); margin: 0; }
+    .hdw-compare__row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+      gap: var(--space-10);
+      padding: var(--space-15);
+      background: var(--color-surface);
+    }
+    .hdw-compare__row dt { font-weight: 700; }
+    .hdw-compare__row dd { margin: 0; color: var(--color-text-muted); }
+    .hdw-closing { padding-block: var(--space-100); background: var(--color-accent); color: var(--color-black); text-align: center; }
+    .hdw-closing__title { font-size: var(--type-closing); line-height: 1; }
+    .hdw-closing .hdw-button--primary {
+      justify-self: center;
+      border-color: var(--color-text);
+      background: var(--color-black);
+      color: var(--color-accent);
+      box-shadow: var(--shadow-closing);
+    }
+    .hdw-closing .hdw-button--primary:hover { color: var(--color-text); }
+
+    @media (max-width: 768px) {
+      .hdw-section { padding-block: var(--space-50); }
+      .hdw-closing { padding-block: var(--space-50); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hdw-button, .hdw-step, .hdw-faq__icon, .hdw-faq__item::details-content { transition: none; }
+      .hdw-button:active, .hdw-step:hover { transform: none; }
+    }
+  </style>
+</head>
+<body><nav class="hdw-container" style="padding-block:20px"><a class="hdw-accent" href="../index.html">← Guia visual</a> · <a class="hdw-accent" href="../implementacao.html">CSS e código</a></nav>
+  <main>
+    <header class="hdw-hero hdw-container">
+      <!-- Ordem do hero: público, oferta, apoio e próxima ação. -->
+      <p class="hdw-hero__label">[ PARA AGÊNCIAS DE MARKETING ]</p>
+      <h1 class="hdw-hero__title">Sites e páginas de vendas para <span class="hdw-accent">sua agência</span></h1>
+      <p class="hdw-hero__copy">Terceirize o desenvolvimento web dos projetos que sua agência entrega aos clientes.</p>
+      <div class="hdw-actions">
+        <a class="hdw-button hdw-button--primary" href="#contato">SOLICITAR ORÇAMENTO</a>
+        <a class="hdw-button hdw-button--secondary" href="#processo">VER COMO FUNCIONA</a>
+      </div>
+    </header>
+
+    <section class="hdw-section hdw-section--surface" aria-labelledby="dores">
+      <div class="hdw-container hdw-stack">
+        <h2 class="hdw-section__title" id="dores">Onde o desenvolvimento trava</h2>
+        <div class="hdw-grid">
+          <article class="hdw-card hdw-card--alert">
+            <p class="hdw-card__bar">ERROR_01 · CUSTO FIXO</p>
+            <div class="hdw-card__body">
+              <span class="hdw-card__marker" aria-hidden="true"></span>
+              <h3 class="hdw-card__title">Equipe ociosa entre projetos</h3>
+              <p>O custo de manter a operação continua nos meses com menos demanda.</p>
+            </div>
+          </article>
+          <article class="hdw-card hdw-card--alert">
+            <p class="hdw-card__bar">ERROR_02 · PÓS-ENTREGA</p>
+            <div class="hdw-card__body">
+              <span class="hdw-card__marker" aria-hidden="true"></span>
+              <h3 class="hdw-card__title">Suporte sem responsável</h3>
+              <p>Combine quem atende os ajustes e onde sua agência deve abrir um chamado.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="hdw-section" aria-labelledby="processo">
+      <div class="hdw-container hdw-container--narrow hdw-stack">
+        <h2 class="hdw-section__title" id="processo">Como o projeto avança</h2>
+        <ol class="hdw-steps">
+          <li class="hdw-step">
+            <span class="hdw-step__number" aria-hidden="true">01</span>
+            <h3 class="hdw-step__title">Briefing</h3>
+            <p>Alinhe objetivos, oferta e materiais antes de definir a estrutura.</p>
+          </li>
+          <li class="hdw-step">
+            <span class="hdw-step__number" aria-hidden="true">02</span>
+            <h3 class="hdw-step__title">Desenvolvimento e revisão</h3>
+            <p>Revise a página no desktop e no celular e valide o próximo passo.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="hdw-section hdw-section--surface" aria-labelledby="servicos">
+      <div class="hdw-container hdw-stack">
+        <h2 class="hdw-section__title" id="servicos">Soluções para a agência</h2>
+        <div class="hdw-grid">
+          <article class="hdw-card"><div class="hdw-card__body"><h3 class="hdw-card__title">Páginas de vendas</h3><p>Estrutura focada na oferta e no próximo passo do visitante.</p></div></article>
+          <article class="hdw-card"><div class="hdw-card__body"><h3 class="hdw-card__title">Sites institucionais</h3><p>Navegação para conhecer a empresa, seus serviços e canais de contato.</p></div></article>
+          <article class="hdw-card"><div class="hdw-card__body"><h3 class="hdw-card__title">Suporte web</h3><p>Ajustes e manutenção conforme o escopo combinado.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="hdw-section" aria-labelledby="oferta">
+      <div class="hdw-container hdw-container--narrow hdw-stack">
+        <h2 class="hdw-section__title" id="oferta">Detalhes da oferta</h2>
+        <div class="hdw-tabs" data-tabs>
+          <div class="hdw-tabs__list" role="tablist" aria-label="Detalhes da oferta">
+            <button class="hdw-tabs__tab" type="button" role="tab" id="tab-escopo" aria-controls="painel-escopo" aria-selected="true">01 Escopo</button>
+            <button class="hdw-tabs__tab" type="button" role="tab" id="tab-processo" aria-controls="painel-processo" aria-selected="false" tabindex="-1">02 Processo</button>
+            <button class="hdw-tabs__tab" type="button" role="tab" id="tab-entrega" aria-controls="painel-entrega" aria-selected="false" tabindex="-1">03 Entrega</button>
+          </div>
+          <div class="hdw-tabs__panel" id="painel-escopo" role="tabpanel" aria-labelledby="tab-escopo" tabindex="0"><h3>O que está incluído</h3><p>Liste páginas, integrações e materiais previstos no escopo.</p></div>
+          <div class="hdw-tabs__panel" id="painel-processo" role="tabpanel" aria-labelledby="tab-processo" tabindex="0" hidden><h3>Como o projeto avança</h3><p>Indique os momentos de briefing, desenvolvimento e aprovação.</p></div>
+          <div class="hdw-tabs__panel" id="painel-entrega" role="tabpanel" aria-labelledby="tab-entrega" tabindex="0" hidden><h3>O que acontece na publicação</h3><p>Defina quem publica e quem recebe os acessos ao final.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hdw-section hdw-section--surface" aria-labelledby="comparativo">
+      <div class="hdw-container hdw-container--narrow hdw-stack">
+        <h2 class="hdw-section__title" id="comparativo">Qual formato atende seu projeto?</h2>
+        <dl class="hdw-compare">
+          <div class="hdw-compare__row"><dt>Página de vendas</dt><dd>Apresentar uma oferta e orientar a compra ou o contato.</dd></div>
+          <div class="hdw-compare__row"><dt>Site institucional</dt><dd>Organizar informações, serviços e formas de contato em várias páginas.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="hdw-section" aria-labelledby="perguntas">
+      <div class="hdw-container hdw-container--narrow hdw-stack">
+        <h2 class="hdw-section__title" id="perguntas">Perguntas frequentes</h2>
+        <div class="hdw-faq">
+          <details class="hdw-faq__item">
+            <summary class="hdw-faq__question">O que preciso enviar no briefing?<span class="hdw-faq__icon" aria-hidden="true">+</span></summary>
+            <p class="hdw-faq__answer">Envie o objetivo, o público, a oferta e os materiais que já existem.</p>
+          </details>
+          <details class="hdw-faq__item">
+            <summary class="hdw-faq__question">Como funciona o suporte?<span class="hdw-faq__icon" aria-hidden="true">+</span></summary>
+            <p class="hdw-faq__answer">O atendimento segue as condições definidas no escopo do projeto.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="hdw-closing" id="contato" aria-labelledby="titulo-contato">
+      <div class="hdw-container hdw-container--narrow hdw-stack">
+        <h2 class="hdw-closing__title" id="titulo-contato">Vamos falar sobre seu próximo projeto?</h2>
+        <p>Conte qual página você precisa e o que ela deve ajudar seu cliente a fazer.</p>
+        <!-- Troque este endereço pelo canal de orçamento do projeto. -->
+        <a class="hdw-button hdw-button--primary" href="https://www.instagram.com/henriquedoweb/">ABRIR PERFIL NO INSTAGRAM</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    for (const group of document.querySelectorAll('[data-tabs]')) {
+      const list = group.querySelector('[role="tablist"]');
+      const tabs = [...list.querySelectorAll('[role="tab"]')];
+
+      function selectTab(activeTab) {
+        for (const tab of tabs) {
+          const selected = tab === activeTab;
+          tab.setAttribute('aria-selected', String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+          document.getElementById(tab.getAttribute('aria-controls')).hidden = !selected;
+        }
+      }
+
+      for (const tab of tabs) {
+        tab.addEventListener('click', () => selectTab(tab));
+      }
+      list.addEventListener('keydown', event => {
+        const index = tabs.indexOf(event.target);
+        if (index === -1) return;
+        let next;
+        switch (event.key) {
+          case 'ArrowLeft': next = (index - 1 + tabs.length) % tabs.length; break;
+          case 'ArrowRight': next = (index + 1) % tabs.length; break;
+          case 'Home': next = 0; break;
+          case 'End': next = tabs.length - 1; break;
+          default: return;
+        }
+        event.preventDefault();
+        selectTab(tabs[next]);
+        tabs[next].focus();
+      });
+    }
+  </script>
+</body>
+</html>

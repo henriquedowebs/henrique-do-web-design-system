@@ -1,0 +1,357 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Implementação | Henrique do Web</title><link rel="stylesheet" href="assets/fonts.css"><link rel="stylesheet" href="assets/docs.css"></head><body><main><nav><a href="index.html">← Guia visual</a><a href="implementacao.html">CSS e componentes</a><a href="index.html#referencias">Referências</a></nav><h1>CSS e componentes</h1><p>Use o CSS completo para carregar fontes, tokens e componentes. Mantenha os arquivos da pasta assets juntos.</p><nav><a download href="assets/brand.css">Baixar CSS de entrada</a><a download href="design-system.zip">Baixar pacote completo</a><a href="assets/componentes.html">Abrir apresentação interativa</a></nav><h2>Instalação</h2><pre><code>&lt;link rel="stylesheet" href="assets/brand.css"&gt;</code></pre><p>Copie o HTML do componente desejado para sua página. Para as abas, carregue também o JavaScript abaixo. Revise os textos e links de exemplo antes de usar.</p><p id="status" role="status" aria-live="polite"></p><h2>Tokens</h2><a download href="assets/tokens.css">Baixar tokens.css</a><button type="button" data-copy="tokens.css">COPIAR CSS</button><pre><code id="tokens.css">:root {
+  /* Cores da identidade */
+  --color-accent: #FF9900; /* Destaque, ação principal e contorno da caveira laranja. */
+  --color-bg: #121212; /* Fundo principal e contorno da caveira preta. */
+  --color-surface: #1E1E1E; /* Fundo de cards, painéis e seções alternadas. */
+  --color-text: #FFFFFF; /* Texto principal e letreiro da logo no fundo escuro. */
+  --color-text-muted: #CCCCCC; /* Texto de apoio em fundos escuros. */
+  --color-logo-light: #EAEAEA; /* Preenchimento interno da caveira. */
+  --color-black: #000000; /* Texto sobre laranja, borda de botão e letreiro no fundo branco. */
+  --color-accent-hover-lp: #E68A00; /* Estado de hover do botão primário. */
+  --color-error-lp: #DF4343; /* Marcador de alerta no card de problema. */
+  --color-partner-hostinger: #674CC4; /* Acento da série Hostinger em capas de tutorial. */
+
+  /* Fontes e escala tipográfica */
+  --font-display: &quot;VT323&quot;, monospace; /* Títulos, etiquetas, etapas e botões. */
+  --font-body: &quot;Inter&quot;, sans-serif; /* Texto corrido e descrições. */
+  --font-logo-caption: &quot;Sora&quot;, sans-serif; /* Assinatura que acompanha o letreiro HEAD. */
+  --type-hero: 64px; /* Título da primeira dobra. */
+  --type-heading: 64px; /* Título de seção no desktop. */
+  --type-heading-mobile: 48px; /* Título de seção até 768 px. */
+  --type-label: 24px; /* Etiquetas, subtítulos de card e perguntas do FAQ. */
+  --type-card: 20px; /* Cabeçalho do card de problema. */
+  --type-small: 16px; /* Rótulo do botão primário. */
+  --type-body: 16px; /* Corpo e texto de apoio no hero. */
+  --type-step: 28px; /* Número de etapa e título de serviço. */
+  --type-note: 14px; /* Nota de validação e observações. */
+  --type-closing: 48px; /* Título do CTA final no desktop. */
+  --type-closing-mobile: 36px; /* Título do CTA final até 768 px. */
+  --line-display: 48px; /* Entrelinha dos títulos da LP. */
+  --line-body: 24px; /* Entrelinha do corpo de 16 px. */
+
+  /* Escala de espaçamento */
+  --space-2: 2px; /* Padding vertical da barra do card. */
+  --space-4: 4px; /* Padding horizontal da barra do card. */
+  --space-8: 8px; /* Padding vertical do controle do card. */
+  --space-10: 10px; /* Padding vertical do botão primário. */
+  --space-15: 15px; /* Intervalo interno do card e entre perguntas. */
+  --space-20: 20px; /* Respiro lateral, gap do hero e padding de card. */
+  --space-24: 24px; /* Intervalo entre cards de problema. */
+  --space-25: 25px; /* Padding do bloco de etapa. */
+  --space-30: 30px; /* Intervalo entre etapas e cards de serviço. */
+  --space-40: 40px; /* Espaço antes do FAQ e abaixo do apoio no CTA final. */
+  --space-50: 50px; /* Padding vertical do hero e da seção de dores. */
+  --space-80: 80px; /* Padding vertical das seções internas. */
+  --space-100: 100px; /* Padding vertical do CTA final. */
+
+  /* Larguras medidas no protótipo da LP */
+  --container-wide: 1440px; /* Limite da seção de dores. */
+  --container-services: 1200px; /* Limite da grade de serviços. */
+  --container-main: 1161px; /* Largura máxima do conteúdo da primeira dobra. */
+  --container-comparison: 900px; /* Largura máxima do comparativo. */
+  --container-narrow: 800px; /* Largura máxima das etapas e do FAQ. */
+  --container-hero-copy: 567px; /* Largura máxima do título e do apoio no hero original. */
+
+  /* Forma, borda e sombra */
+  --radius-square: 0px; /* Cantos retos dos componentes com estética pixelada. */
+  --radius-published-cta: 10px; /* Raio do CTA no site publicado. Referência da implementação anterior. */
+  --border-panel: 2px; /* Espessura da moldura em etapas e painéis. */
+  --border-button: 3px; /* Espessura da borda do botão e do card de problema. */
+  --shadow-button: 2px 2px 0 var(--color-black); /* Sombra curta para o efeito de pressão. */
+  --shadow-step: 4px 4px 0 var(--color-accent); /* Sombra reta laranja do bloco de etapa. */
+  --shadow-closing: 4px 4px 0 var(--color-text); /* Sombra clara da ação sobre o CTA laranja. */
+}
+
+@media (max-width: 768px) {
+  :root {
+    --type-heading: var(--type-heading-mobile); /* Reduz os títulos das seções. */
+    --type-closing: var(--type-closing-mobile); /* Reduz o título do fechamento. */
+  }
+}
+</code></pre><h2>CSS dos componentes</h2><a download href="assets/components.css">Baixar components.css</a><button type="button" data-copy="components.css">COPIAR CSS</button><pre><code id="components.css">
+    *, *::before, *::after { box-sizing: border-box; }
+    html { color-scheme: dark; scroll-padding-top: var(--space-20); }
+    body {
+      margin: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font: 400 var(--type-body)/var(--line-body) var(--font-body);
+      overflow-wrap: anywhere;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 400; }
+    button { font: inherit; }
+    :focus-visible { outline: var(--border-panel) solid var(--color-text); outline-offset: var(--space-4); }
+    [hidden] { display: none !important; }
+
+    .hdw-container {
+      width: min(100% - var(--space-40), var(--container-main));
+      margin-inline: auto;
+    }
+    .hdw-container--narrow { max-width: var(--container-narrow); }
+    .hdw-stack { display: grid; gap: var(--space-20); }
+    .hdw-section { padding-block: var(--space-80); }
+    .hdw-section--surface { background: var(--color-surface); }
+    .hdw-section__title {
+      font-size: var(--type-heading);
+      line-height: min(1em, var(--line-display));
+    }
+    .hdw-grid {
+      display: grid;
+      gap: var(--space-24);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    }
+    .hdw-accent { color: var(--color-accent); }
+
+    /* Botões e primeira dobra */
+    .hdw-actions { display: flex; flex-wrap: wrap; gap: var(--space-20); }
+    .hdw-button {
+      display: inline-block;
+      max-width: 100%;
+      padding: var(--space-10) var(--space-20);
+      border: var(--border-button) solid transparent;
+      border-radius: var(--radius-square);
+      text-align: center;
+      text-decoration: none;
+      font: 400 var(--type-small)/1.25 var(--font-display);
+      cursor: pointer;
+      transition: background-color 150ms ease, color 150ms ease, transform 120ms ease, box-shadow 120ms ease;
+    }
+    .hdw-button--primary {
+      border-color: var(--color-black);
+      background: var(--color-accent);
+      color: var(--color-black);
+      box-shadow: var(--shadow-button);
+    }
+    .hdw-button--primary:hover { background: var(--color-accent-hover-lp); }
+    .hdw-button--secondary { border-color: var(--color-text); color: var(--color-text); }
+    .hdw-button--secondary:hover { background: var(--color-text); color: var(--color-black); }
+    .hdw-button:active { transform: translate(var(--space-2), var(--space-2)); box-shadow: none; }
+    .hdw-hero {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-20);
+      padding-block: var(--space-50);
+      text-align: center;
+    }
+    .hdw-hero__label {
+      color: var(--color-accent);
+      font: 400 var(--type-label)/1 var(--font-display);
+    }
+    .hdw-hero__title {
+      max-width: var(--container-hero-copy);
+      font-size: var(--type-hero);
+      line-height: var(--line-display);
+    }
+    .hdw-hero__copy { max-width: var(--container-hero-copy); color: var(--color-text-muted); }
+    .hdw-hero .hdw-actions { justify-content: center; }
+
+    /* Cards e etapas */
+    .hdw-card { min-width: 0; border: var(--border-panel) solid var(--color-accent); border-radius: var(--radius-square); }
+    .hdw-card__body { display: grid; gap: var(--space-15); padding: var(--space-20); background: var(--color-bg); }
+    .hdw-card__title { font-size: var(--type-step); line-height: 1; }
+    .hdw-card--alert { border-width: var(--border-button); }
+    .hdw-card__bar {
+      padding: var(--space-2) var(--space-10);
+      background: var(--color-accent);
+      color: var(--color-black);
+      font: 400 var(--type-card)/1.4 var(--font-display);
+    }
+    .hdw-card__marker { width: var(--space-50); aspect-ratio: 1; background: var(--color-error-lp); }
+    .hdw-steps { display: grid; gap: var(--space-30); margin: 0; padding: 0; list-style: none; }
+    .hdw-step {
+      display: grid;
+      gap: var(--space-10);
+      padding: var(--space-25);
+      border: var(--border-panel) solid var(--color-accent);
+      background: var(--color-bg);
+      box-shadow: var(--shadow-step);
+      transition: transform 180ms ease;
+    }
+    .hdw-step__number {
+      width: fit-content;
+      padding: var(--space-2) var(--space-8);
+      background: var(--color-accent);
+      color: var(--color-black);
+      font: 400 var(--type-step)/1 var(--font-display);
+    }
+    .hdw-step__title { font-size: var(--type-label); line-height: 1; }
+    @media (hover: hover) {
+      .hdw-step:hover { transform: translateX(var(--space-8)); }
+    }
+
+    /* Abas e FAQ */
+    .hdw-tabs__list { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+    .hdw-tabs__tab {
+      flex: 1 1 110px;
+      min-width: 0;
+      padding: var(--space-8) var(--space-10);
+      border: var(--border-panel) solid var(--color-surface);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font: 400 var(--type-card)/1 var(--font-display);
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+    .hdw-tabs__tab:hover { border-color: var(--color-accent); }
+    .hdw-tabs__tab[aria-selected=&quot;true&quot;] {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: var(--color-black);
+    }
+    .hdw-tabs__panel {
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-20);
+      border: var(--border-panel) solid var(--color-accent);
+      background: var(--color-surface);
+    }
+    .hdw-tabs__panel h3 { font-size: var(--type-label); line-height: 1; }
+    .hdw-faq { display: grid; gap: var(--space-15); }
+    .hdw-faq__item { border: var(--border-panel) solid var(--color-surface); background: var(--color-surface); }
+    .hdw-faq__item[open] { border-color: var(--color-accent); }
+    .hdw-faq__question {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: var(--space-10);
+      padding: var(--space-20);
+      font: 400 var(--type-label)/1.2 var(--font-display);
+      list-style: none;
+      cursor: pointer;
+    }
+    .hdw-faq__question::-webkit-details-marker { display: none; }
+    .hdw-faq__icon { flex: none; color: var(--color-accent); transition: transform 180ms ease; }
+    .hdw-faq__item[open] .hdw-faq__icon { transform: rotate(45deg); }
+    .hdw-faq__answer { padding: 0 var(--space-20) var(--space-20); color: var(--color-text-muted); }
+    @supports (interpolate-size: allow-keywords) {
+      .hdw-faq__item { interpolate-size: allow-keywords; }
+      .hdw-faq__item::details-content {
+        block-size: 0;
+        overflow: clip;
+        transition: block-size 220ms ease, content-visibility 220ms allow-discrete;
+      }
+      .hdw-faq__item[open]::details-content { block-size: auto; }
+    }
+
+    /* Comparativo e fechamento */
+    .hdw-compare { display: grid; gap: var(--space-15); margin: 0; }
+    .hdw-compare__row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+      gap: var(--space-10);
+      padding: var(--space-15);
+      background: var(--color-surface);
+    }
+    .hdw-compare__row dt { font-weight: 700; }
+    .hdw-compare__row dd { margin: 0; color: var(--color-text-muted); }
+    .hdw-closing { padding-block: var(--space-100); background: var(--color-accent); color: var(--color-black); text-align: center; }
+    .hdw-closing__title { font-size: var(--type-closing); line-height: 1; }
+    .hdw-closing .hdw-button--primary {
+      justify-self: center;
+      border-color: var(--color-text);
+      background: var(--color-black);
+      color: var(--color-accent);
+      box-shadow: var(--shadow-closing);
+    }
+    .hdw-closing .hdw-button--primary:hover { color: var(--color-text); }
+
+    @media (max-width: 768px) {
+      .hdw-section { padding-block: var(--space-50); }
+      .hdw-closing { padding-block: var(--space-50); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hdw-button, .hdw-step, .hdw-faq__icon, .hdw-faq__item::details-content { transition: none; }
+      .hdw-button:active, .hdw-step:hover { transform: none; }
+    }
+  </code></pre><h2>Componentes HTML</h2><details><summary>Onde o desenvolvimento trava — HTML</summary><button type="button" data-copy="sample-0">COPIAR HTML</button><pre><code id="sample-0">&lt;section class=&quot;hdw-section hdw-section--surface&quot; aria-labelledby=&quot;dores&quot;&gt;
+      &lt;div class=&quot;hdw-container hdw-stack&quot;&gt;
+        &lt;h2 class=&quot;hdw-section__title&quot; id=&quot;dores&quot;&gt;Onde o desenvolvimento trava&lt;/h2&gt;
+        &lt;div class=&quot;hdw-grid&quot;&gt;
+          &lt;article class=&quot;hdw-card hdw-card--alert&quot;&gt;
+            &lt;p class=&quot;hdw-card__bar&quot;&gt;ERROR_01 · CUSTO FIXO&lt;/p&gt;
+            &lt;div class=&quot;hdw-card__body&quot;&gt;
+              &lt;span class=&quot;hdw-card__marker&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+              &lt;h3 class=&quot;hdw-card__title&quot;&gt;Equipe ociosa entre projetos&lt;/h3&gt;
+              &lt;p&gt;O custo de manter a operação continua nos meses com menos demanda.&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+          &lt;article class=&quot;hdw-card hdw-card--alert&quot;&gt;
+            &lt;p class=&quot;hdw-card__bar&quot;&gt;ERROR_02 · PÓS-ENTREGA&lt;/p&gt;
+            &lt;div class=&quot;hdw-card__body&quot;&gt;
+              &lt;span class=&quot;hdw-card__marker&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+              &lt;h3 class=&quot;hdw-card__title&quot;&gt;Suporte sem responsável&lt;/h3&gt;
+              &lt;p&gt;Combine quem atende os ajustes e onde sua agência deve abrir um chamado.&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/article&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;</code></pre></details><details><summary>Como o projeto avança — HTML</summary><button type="button" data-copy="sample-1">COPIAR HTML</button><pre><code id="sample-1">&lt;section class=&quot;hdw-section&quot; aria-labelledby=&quot;processo&quot;&gt;
+      &lt;div class=&quot;hdw-container hdw-container--narrow hdw-stack&quot;&gt;
+        &lt;h2 class=&quot;hdw-section__title&quot; id=&quot;processo&quot;&gt;Como o projeto avança&lt;/h2&gt;
+        &lt;ol class=&quot;hdw-steps&quot;&gt;
+          &lt;li class=&quot;hdw-step&quot;&gt;
+            &lt;span class=&quot;hdw-step__number&quot; aria-hidden=&quot;true&quot;&gt;01&lt;/span&gt;
+            &lt;h3 class=&quot;hdw-step__title&quot;&gt;Briefing&lt;/h3&gt;
+            &lt;p&gt;Alinhe objetivos, oferta e materiais antes de definir a estrutura.&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li class=&quot;hdw-step&quot;&gt;
+            &lt;span class=&quot;hdw-step__number&quot; aria-hidden=&quot;true&quot;&gt;02&lt;/span&gt;
+            &lt;h3 class=&quot;hdw-step__title&quot;&gt;Desenvolvimento e revisão&lt;/h3&gt;
+            &lt;p&gt;Revise a página no desktop e no celular e valide o próximo passo.&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;</code></pre></details><details><summary>Soluções para a agência — HTML</summary><button type="button" data-copy="sample-2">COPIAR HTML</button><pre><code id="sample-2">&lt;section class=&quot;hdw-section hdw-section--surface&quot; aria-labelledby=&quot;servicos&quot;&gt;
+      &lt;div class=&quot;hdw-container hdw-stack&quot;&gt;
+        &lt;h2 class=&quot;hdw-section__title&quot; id=&quot;servicos&quot;&gt;Soluções para a agência&lt;/h2&gt;
+        &lt;div class=&quot;hdw-grid&quot;&gt;
+          &lt;article class=&quot;hdw-card&quot;&gt;&lt;div class=&quot;hdw-card__body&quot;&gt;&lt;h3 class=&quot;hdw-card__title&quot;&gt;Páginas de vendas&lt;/h3&gt;&lt;p&gt;Estrutura focada na oferta e no próximo passo do visitante.&lt;/p&gt;&lt;/div&gt;&lt;/article&gt;
+          &lt;article class=&quot;hdw-card&quot;&gt;&lt;div class=&quot;hdw-card__body&quot;&gt;&lt;h3 class=&quot;hdw-card__title&quot;&gt;Sites institucionais&lt;/h3&gt;&lt;p&gt;Navegação para conhecer a empresa, seus serviços e canais de contato.&lt;/p&gt;&lt;/div&gt;&lt;/article&gt;
+          &lt;article class=&quot;hdw-card&quot;&gt;&lt;div class=&quot;hdw-card__body&quot;&gt;&lt;h3 class=&quot;hdw-card__title&quot;&gt;Suporte web&lt;/h3&gt;&lt;p&gt;Ajustes e manutenção conforme o escopo combinado.&lt;/p&gt;&lt;/div&gt;&lt;/article&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;</code></pre></details><details><summary>Detalhes da oferta — HTML</summary><button type="button" data-copy="sample-3">COPIAR HTML</button><pre><code id="sample-3">&lt;section class=&quot;hdw-section&quot; aria-labelledby=&quot;oferta&quot;&gt;
+      &lt;div class=&quot;hdw-container hdw-container--narrow hdw-stack&quot;&gt;
+        &lt;h2 class=&quot;hdw-section__title&quot; id=&quot;oferta&quot;&gt;Detalhes da oferta&lt;/h2&gt;
+        &lt;div class=&quot;hdw-tabs&quot; data-tabs&gt;
+          &lt;div class=&quot;hdw-tabs__list&quot; role=&quot;tablist&quot; aria-label=&quot;Detalhes da oferta&quot;&gt;
+            &lt;button class=&quot;hdw-tabs__tab&quot; type=&quot;button&quot; role=&quot;tab&quot; id=&quot;tab-escopo&quot; aria-controls=&quot;painel-escopo&quot; aria-selected=&quot;true&quot;&gt;01 Escopo&lt;/button&gt;
+            &lt;button class=&quot;hdw-tabs__tab&quot; type=&quot;button&quot; role=&quot;tab&quot; id=&quot;tab-processo&quot; aria-controls=&quot;painel-processo&quot; aria-selected=&quot;false&quot; tabindex=&quot;-1&quot;&gt;02 Processo&lt;/button&gt;
+            &lt;button class=&quot;hdw-tabs__tab&quot; type=&quot;button&quot; role=&quot;tab&quot; id=&quot;tab-entrega&quot; aria-controls=&quot;painel-entrega&quot; aria-selected=&quot;false&quot; tabindex=&quot;-1&quot;&gt;03 Entrega&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;hdw-tabs__panel&quot; id=&quot;painel-escopo&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;tab-escopo&quot; tabindex=&quot;0&quot;&gt;&lt;h3&gt;O que está incluído&lt;/h3&gt;&lt;p&gt;Liste páginas, integrações e materiais previstos no escopo.&lt;/p&gt;&lt;/div&gt;
+          &lt;div class=&quot;hdw-tabs__panel&quot; id=&quot;painel-processo&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;tab-processo&quot; tabindex=&quot;0&quot; hidden&gt;&lt;h3&gt;Como o projeto avança&lt;/h3&gt;&lt;p&gt;Indique os momentos de briefing, desenvolvimento e aprovação.&lt;/p&gt;&lt;/div&gt;
+          &lt;div class=&quot;hdw-tabs__panel&quot; id=&quot;painel-entrega&quot; role=&quot;tabpanel&quot; aria-labelledby=&quot;tab-entrega&quot; tabindex=&quot;0&quot; hidden&gt;&lt;h3&gt;O que acontece na publicação&lt;/h3&gt;&lt;p&gt;Defina quem publica e quem recebe os acessos ao final.&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;</code></pre></details><details><summary>Qual formato atende seu projeto? — HTML</summary><button type="button" data-copy="sample-4">COPIAR HTML</button><pre><code id="sample-4">&lt;section class=&quot;hdw-section hdw-section--surface&quot; aria-labelledby=&quot;comparativo&quot;&gt;
+      &lt;div class=&quot;hdw-container hdw-container--narrow hdw-stack&quot;&gt;
+        &lt;h2 class=&quot;hdw-section__title&quot; id=&quot;comparativo&quot;&gt;Qual formato atende seu projeto?&lt;/h2&gt;
+        &lt;dl class=&quot;hdw-compare&quot;&gt;
+          &lt;div class=&quot;hdw-compare__row&quot;&gt;&lt;dt&gt;Página de vendas&lt;/dt&gt;&lt;dd&gt;Apresentar uma oferta e orientar a compra ou o contato.&lt;/dd&gt;&lt;/div&gt;
+          &lt;div class=&quot;hdw-compare__row&quot;&gt;&lt;dt&gt;Site institucional&lt;/dt&gt;&lt;dd&gt;Organizar informações, serviços e formas de contato em várias páginas.&lt;/dd&gt;&lt;/div&gt;
+        &lt;/dl&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;</code></pre></details><details><summary>Perguntas frequentes — HTML</summary><button type="button" data-copy="sample-5">COPIAR HTML</button><pre><code id="sample-5">&lt;section class=&quot;hdw-section&quot; aria-labelledby=&quot;perguntas&quot;&gt;
+      &lt;div class=&quot;hdw-container hdw-container--narrow hdw-stack&quot;&gt;
+        &lt;h2 class=&quot;hdw-section__title&quot; id=&quot;perguntas&quot;&gt;Perguntas frequentes&lt;/h2&gt;
+        &lt;div class=&quot;hdw-faq&quot;&gt;
+          &lt;details class=&quot;hdw-faq__item&quot;&gt;
+            &lt;summary class=&quot;hdw-faq__question&quot;&gt;O que preciso enviar no briefing?&lt;span class=&quot;hdw-faq__icon&quot; aria-hidden=&quot;true&quot;&gt;+&lt;/span&gt;&lt;/summary&gt;
+            &lt;p class=&quot;hdw-faq__answer&quot;&gt;Envie o objetivo, o público, a oferta e os materiais que já existem.&lt;/p&gt;
+          &lt;/details&gt;
+          &lt;details class=&quot;hdw-faq__item&quot;&gt;
+            &lt;summary class=&quot;hdw-faq__question&quot;&gt;Como funciona o suporte?&lt;span class=&quot;hdw-faq__icon&quot; aria-hidden=&quot;true&quot;&gt;+&lt;/span&gt;&lt;/summary&gt;
+            &lt;p class=&quot;hdw-faq__answer&quot;&gt;O atendimento segue as condições definidas no escopo do projeto.&lt;/p&gt;
+          &lt;/details&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;</code></pre></details><details><summary>Vamos falar sobre seu próximo projeto? — HTML</summary><button type="button" data-copy="sample-6">COPIAR HTML</button><pre><code id="sample-6">&lt;section class=&quot;hdw-closing&quot; id=&quot;contato&quot; aria-labelledby=&quot;titulo-contato&quot;&gt;
+      &lt;div class=&quot;hdw-container hdw-container--narrow hdw-stack&quot;&gt;
+        &lt;h2 class=&quot;hdw-closing__title&quot; id=&quot;titulo-contato&quot;&gt;Vamos falar sobre seu próximo projeto?&lt;/h2&gt;
+        &lt;p&gt;Conte qual página você precisa e o que ela deve ajudar seu cliente a fazer.&lt;/p&gt;
+        &lt;!-- Troque este endereço pelo canal de orçamento do projeto. --&gt;
+        &lt;a class=&quot;hdw-button hdw-button--primary&quot; href=&quot;https://www.instagram.com/henriquedoweb/&quot;&gt;ABRIR PERFIL NO INSTAGRAM&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;</code></pre></details><h2>Interações das abas</h2><pre><code>&lt;script src="assets/components.js" defer&gt;&lt;/script&gt;</code></pre><a download href="assets/components.js">Baixar JavaScript</a><script>document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{const code=document.getElementById(button.dataset.copy);try{await navigator.clipboard.writeText(code.textContent);document.getElementById('status').textContent='Código copiado.'}catch{const range=document.createRange();range.selectNodeContents(code);const selection=getSelection();selection.removeAllRanges();selection.addRange(range);document.getElementById('status').textContent='Código selecionado. Use Ctrl+C ou ⌘C.'}}));</script></main></body></html>

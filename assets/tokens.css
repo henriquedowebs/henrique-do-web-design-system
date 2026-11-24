@@ -1,0 +1,70 @@
+:root {
+  /* Cores da identidade */
+  --color-accent: #FF9900; /* Destaque, ação principal e contorno da caveira laranja. */
+  --color-bg: #121212; /* Fundo principal e contorno da caveira preta. */
+  --color-surface: #1E1E1E; /* Fundo de cards, painéis e seções alternadas. */
+  --color-text: #FFFFFF; /* Texto principal e letreiro da logo no fundo escuro. */
+  --color-text-muted: #CCCCCC; /* Texto de apoio em fundos escuros. */
+  --color-logo-light: #EAEAEA; /* Preenchimento interno da caveira. */
+  --color-black: #000000; /* Texto sobre laranja, borda de botão e letreiro no fundo branco. */
+  --color-accent-hover-lp: #E68A00; /* Estado de hover do botão primário. */
+  --color-error-lp: #DF4343; /* Marcador de alerta no card de problema. */
+  --color-partner-hostinger: #674CC4; /* Acento da série Hostinger em capas de tutorial. */
+
+  /* Fontes e escala tipográfica */
+  --font-display: "VT323", monospace; /* Títulos, etiquetas, etapas e botões. */
+  --font-body: "Inter", sans-serif; /* Texto corrido e descrições. */
+  --font-logo-caption: "Sora", sans-serif; /* Assinatura que acompanha o letreiro HEAD. */
+  --type-hero: 64px; /* Título da primeira dobra. */
+  --type-heading: 64px; /* Título de seção no desktop. */
+  --type-heading-mobile: 48px; /* Título de seção até 768 px. */
+  --type-label: 24px; /* Etiquetas, subtítulos de card e perguntas do FAQ. */
+  --type-card: 20px; /* Cabeçalho do card de problema. */
+  --type-small: 16px; /* Rótulo do botão primário. */
+  --type-body: 16px; /* Corpo e texto de apoio no hero. */
+  --type-step: 28px; /* Número de etapa e título de serviço. */
+  --type-note: 14px; /* Nota de validação e observações. */
+  --type-closing: 48px; /* Título do CTA final no desktop. */
+  --type-closing-mobile: 36px; /* Título do CTA final até 768 px. */
+  --line-display: 48px; /* Entrelinha dos títulos da LP. */
+  --line-body: 24px; /* Entrelinha do corpo de 16 px. */
+
+  /* Escala de espaçamento */
+  --space-2: 2px; /* Padding vertical da barra do card. */
+  --space-4: 4px; /* Padding horizontal da barra do card. */
+  --space-8: 8px; /* Padding vertical do controle do card. */
+  --space-10: 10px; /* Padding vertical do botão primário. */
+  --space-15: 15px; /* Intervalo interno do card e entre perguntas. */
+  --space-20: 20px; /* Respiro lateral, gap do hero e padding de card. */
+  --space-24: 24px; /* Intervalo entre cards de problema. */
+  --space-25: 25px; /* Padding do bloco de etapa. */
+  --space-30: 30px; /* Intervalo entre etapas e cards de serviço. */
+  --space-40: 40px; /* Espaço antes do FAQ e abaixo do apoio no CTA final. */
+  --space-50: 50px; /* Padding vertical do hero e da seção de dores. */
+  --space-80: 80px; /* Padding vertical das seções internas. */
+  --space-100: 100px; /* Padding vertical do CTA final. */
+
+  /* Larguras medidas no protótipo da LP */
+  --container-wide: 1440px; /* Limite da seção de dores. */
+  --container-services: 1200px; /* Limite da grade de serviços. */
+  --container-main: 1161px; /* Largura máxima do conteúdo da primeira dobra. */
+  --container-comparison: 900px; /* Largura máxima do comparativo. */
+  --container-narrow: 800px; /* Largura máxima das etapas e do FAQ. */
+  --container-hero-copy: 567px; /* Largura máxima do título e do apoio no hero original. */
+
+  /* Forma, borda e sombra */
+  --radius-square: 0px; /* Cantos retos dos componentes com estética pixelada. */
+  --radius-published-cta: 10px; /* Raio do CTA no site publicado. Referência da implementação anterior. */
+  --border-panel: 2px; /* Espessura da moldura em etapas e painéis. */
+  --border-button: 3px; /* Espessura da borda do botão e do card de problema. */
+  --shadow-button: 2px 2px 0 var(--color-black); /* Sombra curta para o efeito de pressão. */
+  --shadow-step: 4px 4px 0 var(--color-accent); /* Sombra reta laranja do bloco de etapa. */
+  --shadow-closing: 4px 4px 0 var(--color-text); /* Sombra clara da ação sobre o CTA laranja. */
+}
+
+@media (max-width: 768px) {
+  :root {
+    --type-heading: var(--type-heading-mobile); /* Reduz os títulos das seções. */
+    --type-closing: var(--type-closing-mobile); /* Reduz o título do fechamento. */
+  }
+}

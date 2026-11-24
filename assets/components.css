@@ -1,0 +1,197 @@
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { color-scheme: dark; scroll-padding-top: var(--space-20); }
+    body {
+      margin: 0;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font: 400 var(--type-body)/var(--line-body) var(--font-body);
+      overflow-wrap: anywhere;
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 400; }
+    button { font: inherit; }
+    :focus-visible { outline: var(--border-panel) solid var(--color-text); outline-offset: var(--space-4); }
+    [hidden] { display: none !important; }
+
+    .hdw-container {
+      width: min(100% - var(--space-40), var(--container-main));
+      margin-inline: auto;
+    }
+    .hdw-container--narrow { max-width: var(--container-narrow); }
+    .hdw-stack { display: grid; gap: var(--space-20); }
+    .hdw-section { padding-block: var(--space-80); }
+    .hdw-section--surface { background: var(--color-surface); }
+    .hdw-section__title {
+      font-size: var(--type-heading);
+      line-height: min(1em, var(--line-display));
+    }
+    .hdw-grid {
+      display: grid;
+      gap: var(--space-24);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    }
+    .hdw-accent { color: var(--color-accent); }
+
+    /* Botões e primeira dobra */
+    .hdw-actions { display: flex; flex-wrap: wrap; gap: var(--space-20); }
+    .hdw-button {
+      display: inline-block;
+      max-width: 100%;
+      padding: var(--space-10) var(--space-20);
+      border: var(--border-button) solid transparent;
+      border-radius: var(--radius-square);
+      text-align: center;
+      text-decoration: none;
+      font: 400 var(--type-small)/1.25 var(--font-display);
+      cursor: pointer;
+      transition: background-color 150ms ease, color 150ms ease, transform 120ms ease, box-shadow 120ms ease;
+    }
+    .hdw-button--primary {
+      border-color: var(--color-black);
+      background: var(--color-accent);
+      color: var(--color-black);
+      box-shadow: var(--shadow-button);
+    }
+    .hdw-button--primary:hover { background: var(--color-accent-hover-lp); }
+    .hdw-button--secondary { border-color: var(--color-text); color: var(--color-text); }
+    .hdw-button--secondary:hover { background: var(--color-text); color: var(--color-black); }
+    .hdw-button:active { transform: translate(var(--space-2), var(--space-2)); box-shadow: none; }
+    .hdw-hero {
+      display: grid;
+      justify-items: center;
+      gap: var(--space-20);
+      padding-block: var(--space-50);
+      text-align: center;
+    }
+    .hdw-hero__label {
+      color: var(--color-accent);
+      font: 400 var(--type-label)/1 var(--font-display);
+    }
+    .hdw-hero__title {
+      max-width: var(--container-hero-copy);
+      font-size: var(--type-hero);
+      line-height: var(--line-display);
+    }
+    .hdw-hero__copy { max-width: var(--container-hero-copy); color: var(--color-text-muted); }
+    .hdw-hero .hdw-actions { justify-content: center; }
+
+    /* Cards e etapas */
+    .hdw-card { min-width: 0; border: var(--border-panel) solid var(--color-accent); border-radius: var(--radius-square); }
+    .hdw-card__body { display: grid; gap: var(--space-15); padding: var(--space-20); background: var(--color-bg); }
+    .hdw-card__title { font-size: var(--type-step); line-height: 1; }
+    .hdw-card--alert { border-width: var(--border-button); }
+    .hdw-card__bar {
+      padding: var(--space-2) var(--space-10);
+      background: var(--color-accent);
+      color: var(--color-black);
+      font: 400 var(--type-card)/1.4 var(--font-display);
+    }
+    .hdw-card__marker { width: var(--space-50); aspect-ratio: 1; background: var(--color-error-lp); }
+    .hdw-steps { display: grid; gap: var(--space-30); margin: 0; padding: 0; list-style: none; }
+    .hdw-step {
+      display: grid;
+      gap: var(--space-10);
+      padding: var(--space-25);
+      border: var(--border-panel) solid var(--color-accent);
+      background: var(--color-bg);
+      box-shadow: var(--shadow-step);
+      transition: transform 180ms ease;
+    }
+    .hdw-step__number {
+      width: fit-content;
+      padding: var(--space-2) var(--space-8);
+      background: var(--color-accent);
+      color: var(--color-black);
+      font: 400 var(--type-step)/1 var(--font-display);
+    }
+    .hdw-step__title { font-size: var(--type-label); line-height: 1; }
+    @media (hover: hover) {
+      .hdw-step:hover { transform: translateX(var(--space-8)); }
+    }
+
+    /* Abas e FAQ */
+    .hdw-tabs__list { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+    .hdw-tabs__tab {
+      flex: 1 1 110px;
+      min-width: 0;
+      padding: var(--space-8) var(--space-10);
+      border: var(--border-panel) solid var(--color-surface);
+      background: var(--color-bg);
+      color: var(--color-text);
+      font: 400 var(--type-card)/1 var(--font-display);
+      overflow-wrap: anywhere;
+      cursor: pointer;
+    }
+    .hdw-tabs__tab:hover { border-color: var(--color-accent); }
+    .hdw-tabs__tab[aria-selected="true"] {
+      border-color: var(--color-accent);
+      background: var(--color-accent);
+      color: var(--color-black);
+    }
+    .hdw-tabs__panel {
+      display: grid;
+      gap: var(--space-8);
+      padding: var(--space-20);
+      border: var(--border-panel) solid var(--color-accent);
+      background: var(--color-surface);
+    }
+    .hdw-tabs__panel h3 { font-size: var(--type-label); line-height: 1; }
+    .hdw-faq { display: grid; gap: var(--space-15); }
+    .hdw-faq__item { border: var(--border-panel) solid var(--color-surface); background: var(--color-surface); }
+    .hdw-faq__item[open] { border-color: var(--color-accent); }
+    .hdw-faq__question {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: var(--space-10);
+      padding: var(--space-20);
+      font: 400 var(--type-label)/1.2 var(--font-display);
+      list-style: none;
+      cursor: pointer;
+    }
+    .hdw-faq__question::-webkit-details-marker { display: none; }
+    .hdw-faq__icon { flex: none; color: var(--color-accent); transition: transform 180ms ease; }
+    .hdw-faq__item[open] .hdw-faq__icon { transform: rotate(45deg); }
+    .hdw-faq__answer { padding: 0 var(--space-20) var(--space-20); color: var(--color-text-muted); }
+    @supports (interpolate-size: allow-keywords) {
+      .hdw-faq__item { interpolate-size: allow-keywords; }
+      .hdw-faq__item::details-content {
+        block-size: 0;
+        overflow: clip;
+        transition: block-size 220ms ease, content-visibility 220ms allow-discrete;
+      }
+      .hdw-faq__item[open]::details-content { block-size: auto; }
+    }
+
+    /* Comparativo e fechamento */
+    .hdw-compare { display: grid; gap: var(--space-15); margin: 0; }
+    .hdw-compare__row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+      gap: var(--space-10);
+      padding: var(--space-15);
+      background: var(--color-surface);
+    }
+    .hdw-compare__row dt { font-weight: 700; }
+    .hdw-compare__row dd { margin: 0; color: var(--color-text-muted); }
+    .hdw-closing { padding-block: var(--space-100); background: var(--color-accent); color: var(--color-black); text-align: center; }
+    .hdw-closing__title { font-size: var(--type-closing); line-height: 1; }
+    .hdw-closing .hdw-button--primary {
+      justify-self: center;
+      border-color: var(--color-text);
+      background: var(--color-black);
+      color: var(--color-accent);
+      box-shadow: var(--shadow-closing);
+    }
+    .hdw-closing .hdw-button--primary:hover { color: var(--color-text); }
+
+    @media (max-width: 768px) {
+      .hdw-section { padding-block: var(--space-50); }
+      .hdw-closing { padding-block: var(--space-50); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hdw-button, .hdw-step, .hdw-faq__icon, .hdw-faq__item::details-content { transition: none; }
+      .hdw-button:active, .hdw-step:hover { transform: none; }
+    }
+  
